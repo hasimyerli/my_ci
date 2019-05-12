@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <title>{% block title %}Admin 2 - Dashboard{% endblock %}</title>
+
+    {% include "admin/includes/head.twig" %}
+
+    {% block stylesheets %}
+        {% include "admin/includes/styles.twig" %}
+    {% endblock %}
+
+</head>
+<body class="bg-gradient-primary">
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+{% block javascripts %}
+    {% include "admin/includes/scripts.twig" %}
+{% endblock %}
+
+</body>
+</html>

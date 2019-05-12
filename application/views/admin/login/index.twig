@@ -1,0 +1,48 @@
+{% extends "admin/layout/login.twig" %}
+
+{# set title #}
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+  <div class="row justify-content-center">
+
+    <div class="col-md-12">
+
+      <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+          <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-lg-6">
+              <div class="p-5">
+                <div class="text-center">
+                  <h1 class="h4 text-gray-900 mb-4">HOŞ GELDİNİZ</h1>
+                </div>
+                <form class="user" action="{{ base_url('admin/login') }}" method="post">
+                  <input type="hidden" value="{{ csrf_hash }}" name="{{ csrf_token_name }}">
+                  <div class="form-group">
+                    <input type="text" name="username" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Kullanıcı Adı">
+                  </div>
+                  <div class="form-group">
+                    <input type="password" name="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Şifre">
+                  </div>
+                  <input class="btn btn-primary btn-user btn-block" type="submit" value="Giriş Yap">
+                  <br>
+                  <div class="form-group text-center">
+                      {% if  errorMessage != "" %}
+                        <span class="badge alert-danger small" style="margin:0px auto;padding:10px;">
+                      {{ errorMessage }}
+                    </span>
+                      {% endif %}
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="col-md-3"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+{% endblock %}

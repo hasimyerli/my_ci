@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <title>{{ headTitle }}</title>
+
+    {% include "admin/includes/head.twig" %}
+
+    {% block stylesheets %}
+        {% include "admin/includes/styles.twig" %}
+    {% endblock %}
+
+</head>
+<body id="page-top">
+
+<div id="wrapper">
+    {% include "admin/includes/sidebar.twig" %}
+
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            {% include "admin/includes/header.twig" %}
+            <div class="container-fluid">
+                <div class="main-content">
+                    <div class="card shadow">
+                        <div class="card-header py-3 border-bottom-primary">
+                            {% include "admin/includes/breadcrumbs.twig" %}
+                        </div>
+                        <div class="card-body">
+                            {% include "admin/includes/message.twig" %}
+                            {% include "admin/includes/form_validation_message.twig" %}
+                            {% block content %}
+                            {% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+{% block javascripts %}
+    {% include "admin/includes/scripts.twig" %}
+{% endblock %}
+
+</body>
+</html>

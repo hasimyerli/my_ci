@@ -1,0 +1,5 @@
+{% if  validation_errors() != "" %}
+    <div class="form-group alert alert-warning small" style="padding:10px;">
+        {{ validation_errors() }}
+    </div>
+{% endif %}

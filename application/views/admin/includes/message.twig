@@ -1,0 +1,9 @@
+{% if successMessage %}
+    <div class="form-group alert badge-success small" style="padding:10px;">
+        {{ successMessage }}
+    </div>
+{% elseif errorMessage %}
+    <div class="form-group alert badge-warning small" style="padding:10px;">
+        {{ errorMessage }}
+    </div>
+{% endif %}

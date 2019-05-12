@@ -1,0 +1,50 @@
+{% extends "admin/layout/default.twig" %}
+
+{# set title #}
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+  <div class="table-responsive">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+      <thead>
+      <tr>
+        <th>Sıra</th>
+        <th>Başlık</th>
+        <th>Açıklama</th>
+        <th>Tarih</th>
+        <th>İşlem</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for todo in todoList %}
+        <tr>
+          <td>{{ todo.id }}</td>
+          <td>{{ todo.title }}</td>
+          <td>{{ todo.description }}</td>
+          <td>
+              {% if todo.date == date("Y-m-d") %}
+                  {% set style = "success" %}
+                  {% set text = "Bugün" %}
+                {% elseif  todo.date < date("Y-m-d") %}
+                  {% set style = "danger" %}
+                  {% set text = "Geçti" %}
+                {% else %}
+                  {% set style = "secondary" %}
+                  {% set text = "Gelecek" %}
+              {% endif %}
+            <span class="badge badge-{{ style }}">{{ text }} / {{ todo.date }}</span>
+          </td>
+          <td>
+            <a href="{{ base_url('admin/todo/edit') }}/{{ todo.id }}" class="btn btn-warning  btn-circle">
+              <i class="fas fa-pencil-alt"></i>
+            </a>
+            <a href="{{ base_url('admin/todo/delete') }}/{{ todo.id }}" class="btn btn-danger btn-circle">
+              <i class="fas fa-trash"></i>
+            </a>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
