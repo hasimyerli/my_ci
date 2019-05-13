@@ -16,8 +16,8 @@ my_ci.sql dosyasını oluşturacağınız veritabanını içine import ediniz.
 
 ##### Neler var?:
 1. View katmanı için twig engine entegre edildi.
-2. Katmanlı mimari olarak  katmanı kullanıldı ve **business logic** dediğimiz iş mantığı buraya taşındı.
-3. Veritabanı ile haberleşme "**Service**" katmanı üzerinden yapıldı.
+2. Katmanlı mimari olarak **Service** katmanı kullanıldı ve **business logic** dediğimiz iş mantığı buraya taşındı.
+3. Veritabanı ile haberleşme **Service** katmanı üzerinden yapıldı.
 4. **Service** katmanı ve **Model** katmanı için **Abstract** sınıflar oluşturuldu ve tekrar eden ortak operasyonlar tek bir yerde yazılarak bu işlemlerin tekrar edilmemesi sağlandı.
 
 ##### Service ve Model Katmanı
