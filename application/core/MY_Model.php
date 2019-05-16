@@ -26,7 +26,7 @@ abstract class AbstractModel extends MY_Model {
     $this->db
       ->where("id", $id)
       ->update($this->table, $data);
-    return ($this->db->trans_status() || $this->db->affected_rows());
+    return $this->db->affected_rows();
   }
 
   public function delete($id)
