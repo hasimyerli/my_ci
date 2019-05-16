@@ -11,7 +11,7 @@ class MY_Controller extends CI_Controller {
         $this->output->enable_profiler(true);
         $this->data['csrfName'] = $this->security->get_csrf_token_name();
         $this->data['csrfToken'] = $this->security->get_csrf_hash();
-        $this->getMessage();
+        $this->getFlasMessage();
     }
 
     public function getData()
@@ -19,7 +19,7 @@ class MY_Controller extends CI_Controller {
         return $this->data;
     }
 
-    protected function getMessage()
+    protected function getFlasMessage()
     {
         if (!empty($this->session->flashdata('successMessage')))
         {
