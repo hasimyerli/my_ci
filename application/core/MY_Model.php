@@ -20,18 +20,17 @@ class MY_Model extends CI_Model {
     private function parseQueryInfo($info)
     {
         $queryInfo = new stdClass();
-        $queryInfo->rows_matched = 0;
-        $queryInfo->changed = 0;
-        $queryInfo->warnings = 0;
 
         //$result = "Rows matched: 1  Changed: 0  Warnings: 0"
         $result = explode("  ",$info);
+        $row = [];
         foreach ($result as $key => $item) {
-            $row = explode(": ", $item);
-            if ($key === 0) $queryInfo->rows_matched = (int)$row[1];
-            if ($key === 1) $queryInfo->changed = (int)$row[1];
-            if ($key === 2) $queryInfo->warnings = (int)$row[1];
+            $row[$key] = (int)explode(": ", $item)[1];
         }
+
+        $queryInfo->rows_matched = $row[0];
+        $queryInfo->changed = $row[1];
+        $queryInfo->warnings = $row[2];
         return $queryInfo;
     }
 }
