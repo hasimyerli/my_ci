@@ -43,7 +43,7 @@ class Security extends MY_Controller {
     public static function cryptTo($value)
     {
         $ci = &get_instance();
-        $data = sha1( $ci->config->item('encryption_key') . $value . 'GSSgss');
+        $data = sha1( $ci->config->item('encryption_key') . $value . 'ci_ic');
         return $data;
     }
 
