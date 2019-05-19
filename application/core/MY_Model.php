@@ -21,6 +21,19 @@ class MY_Model extends CI_Model {
     {
         $queryInfo = new stdClass();
 
+        preg_match_all('/-?[0-9]+/',$info, $result);
+
+        $queryInfo->rows_matched = (int)$result[0][0];
+        $queryInfo->changed = (int)$result[0][1];
+        $queryInfo->warnings = (int)$result[0][2];
+
+        return $queryInfo;
+    }
+
+    private function parseQueryInfo_v2($info)
+    {
+        $queryInfo = new stdClass();
+
         //$result = "Rows matched: 1  Changed: 0  Warnings: 0"
         $result = explode("  ",$info);
         $row = [];
