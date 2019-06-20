@@ -6,7 +6,7 @@ Yapılacaklar listesi uygulaması.
 
 ##### Admin Panel:
 url: admin/login
-<br>
+<br> 
 username: admin
 <br>
 pw: 1
