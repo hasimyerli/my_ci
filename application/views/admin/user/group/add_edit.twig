@@ -1,0 +1,53 @@
+{% extends "admin/layout/default.twig" %}
+
+{% block content %}
+    <form action="{{ formAction }}" method="post">
+        <input class="form-control" type="hidden" name="{{ csrfName }}" value="{{ csrfToken }}">
+        <div class="form-group">
+            <label for=""><b>Grup Adı</b></label>
+            <input type="text" class="form-control" name="name" value="{{ name }}">
+        </div>
+        <div class="row">
+            <div class="col-md-12 form-group">
+                <div class="table-responsive">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>Modül</th>
+                            <th>Erişim Yetkisi</th>
+                            <th>Değişim Yetkisi</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for permission in permissions %}
+                            <tr>
+                                <td>{{ permission }}</td>
+                                <td>
+                                    <input type="checkbox" class="form-check-inline"
+                                           name="hasPermissions[access][]"
+                                           value="{{ permission }}"
+                                           {% if permission in hasPermissions.access %}
+                                               checked="checked"
+                                           {% endif %}
+                                    >
+                                </td>
+                                <td>
+                                    <input type="checkbox" class="form-check-inline"
+                                           name="hasPermissions[modify][]"
+                                           value="{{ permission }}"
+                                           value="{{ permission }}"
+                                            {% if permission in hasPermissions.modify %}
+                                                checked="checked"
+                                            {% endif %}
+                                    >
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Kaydet</button>
+    </form>
+{% endblock %}

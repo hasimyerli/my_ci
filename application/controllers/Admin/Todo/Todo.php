@@ -1,6 +1,6 @@
 <?php
 
-class Todo extends MY_Controller
+class Todo extends Admin_Controller
 {
     function __construct()
     {

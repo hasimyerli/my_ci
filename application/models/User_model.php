@@ -9,4 +9,15 @@ class User_model extends AbstractModel {
         parent::__construct("user");
     }
 
+    public function getUser($userId)
+    {
+        return $this->db
+            ->select('u.*, ug.permission')
+            ->from('user u')
+            ->where(['u.id' => $userId, 'isActive' => 1])
+            ->join('user_group ug', 'u.user_group_id = ug.id', 'inner')
+            ->get()
+            ->row();
+    }
+
 }

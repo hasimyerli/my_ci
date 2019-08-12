@@ -11,3 +11,7 @@ include $prefix.'/Security/Admin/Config/route.php';
 include $prefix.'/Admin/Dashboard/Config/route.php';
 #Todo
 include $prefix.'/Admin/Todo/Config/route.php';
+#Page
+include $prefix.'/Admin/Page/Config/route.php';
+#User
+include $prefix.'/Admin/User/Config/route.php';

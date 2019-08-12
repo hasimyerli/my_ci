@@ -1,0 +1,19 @@
+{% extends "admin/layout/default.twig" %}
+{% block breadcrumbs %}
+	<h6 class="m-0 font-weight-bold text-center" style="text-transform:uppercase;">
+		{% if breadcrumb %}
+			{{ breadcrumb }}
+		{% endif %}
+	</h6>
+{% endblock %}
+{% block content %}
+	<div class="row">
+		<div class="col-md-12 text-center">
+			<h5 class="text-danger">
+				Bu işlemi gerçekleştirmek için yetkiniz bulunmamaktadır.
+				<br>
+				Yönetici ile iletişime geçebilirsiniz.
+			</h5>
+		</div>
+	</div>
+{% endblock %}
