@@ -22,7 +22,9 @@
                 <div class="main-content">
                     <div class="card shadow">
                         <div class="card-header py-3 border-bottom-primary">
-                            {% include "admin/includes/breadcrumbs.twig" %}
+                            {% block breadcrumbs %}
+                                {% include "admin/includes/breadcrumbs.twig" %}
+                            {% endblock %}
                         </div>
                         <div class="card-body">
                             {% include "admin/includes/message.twig" %}
