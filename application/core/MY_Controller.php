@@ -81,60 +81,98 @@ class Admin_Controller extends MY_Controller {
 
     private $user;
 
-    public function __construct() {
-
+    public function __construct()
+    {
         parent::__construct();
-
         $this->load->service('User_service');
-
         $this->user = $this->session->userdata('user');
-
-        if(empty($this->user) || (isset($this->user) && $this->user['isLogin'] != TRUE)) {
-            redirect(base_url('admin/login'));
-        }
+        $this->checkLogin();
         $this->hasPermission();
     }
 
-    private function hasPermission($key="access")
+    /**
+     * Login control
+     */
+    private function checkLogin()
     {
-        $permissions = $this->getUserPermissions();
-        if ($this->input->server('REQUEST_METHOD') == 'POST') {
-            $key="modify";
-        }
-        if(!in_array($this->getRequiredPermission(), $this->getIgnoredPermission()) && (!isset($permissions[$key]) || !in_array($this->getRequiredPermission(), $permissions[$key]))) {
-            redirect(base_url('admin/page/error/permission'));
+        if(empty($this->user) || (isset($this->user) && $this->user['isLogin'] != TRUE)) {
+            redirect(base_url('admin/login'));
         }
     }
 
-    private function getUserPermissions()
+    /**
+     * Admin değil ise yetki kontrolü yapılır.
+     * Admin ise herşeye erişebilir
+     */
+    protected function hasPermission()
     {
-        $user = $this->user_service->getModel()->getUser($this->user['id']);
-        return json_decode($user->permission,true);
+        $user = $this->getUser();
+        if ($user->role != 'admin') {
+            $userModules = json_decode($user->modules,true);
+            $permission = $this->router->fetch_method();
+            $requiredModule = $this->getRequiredModule();
+            if (!isset($userModules[$requiredModule]) || !in_array($permission, $userModules[$requiredModule])) {
+                redirect(base_url('admin/page/error/permission'));
+            }
+        }
     }
 
-    private function getRequiredPermission()
+    private function getUser()
     {
-        $permission = "";
+        return $this->user_service->getModel()->getUser($this->user['id']);
+    }
+
+    private function getRequiredModule()
+    {
+        $module = "";
         try {
             $reflection = new ReflectionClass(get_called_class());
             $prefix = "Admin";
             $dirName = dirname($reflection->getFileName());
             $moduleName = substr($dirName, strrpos($dirName, $prefix),strlen($dirName));
             $className = get_class($this);
-            $permission =  str_replace("\\","/",$moduleName)."/".$className;
-;        } catch (ReflectionException $e) {}
-
-        return $permission;
+            $module =  str_replace("\\","/",$moduleName)."/".$className;
+        } catch (ReflectionException $e) {
+            //TODO:: Session error message
+        }
+        return $module;
     }
 
     protected function getIgnoredPermission()
     {
         return [
-            'Admin/User/Groups/UserGroup',
-            'Admin/Page/ErrorPage'
+            'Admin/Module/Module', //Because the name is already declared
+            'Admin/Page/Page', // Parent class
+            'Admin/Page/ErrorPage' //public
         ];
     }
 
+    protected function getModuleActions($controllerName)
+    {
+        $moduleActions = [];
+        $class = new ReflectionClass($controllerName);
+        $className = $class->name;
+        $methods = $class->getMethods(ReflectionMethod::IS_PUBLIC);
+        foreach ($methods as $method) {
+            if ($method->class == $className && $method->name != '__construct') {
+                $moduleActions[] = $method->name;
+            }
+        }
+        return $moduleActions;
+    }
+
+    protected function getControllerName($controllerPath)
+    {
+        $controllerName = explode("/", $controllerPath);
+        return end($controllerName);
+    }
+
+    protected function getControllerPath($file)
+    {
+        $controllerPath = substr($file, strlen('application/controllers/'));
+        $controllerPath = substr($controllerPath, 0, strrpos($controllerPath, '.'));
+        return $controllerPath;
+    }
 }
 
 class Security_Controller extends MY_Controller {
