@@ -12,7 +12,7 @@ class User_model extends AbstractModel {
     public function getUser($userId)
     {
         return $this->db
-            ->select('u.*, ug.permission')
+            ->select('u.*, ug.modules, ug.name as role')
             ->from('user u')
             ->where(['u.id' => $userId, 'isActive' => 1])
             ->join('user_group ug', 'u.user_group_id = ug.id', 'inner')

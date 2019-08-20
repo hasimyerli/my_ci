@@ -15,3 +15,5 @@ include $prefix.'/Admin/Todo/Config/route.php';
 include $prefix.'/Admin/Page/Config/route.php';
 #User
 include $prefix.'/Admin/User/Config/route.php';
+#module
+include $prefix.'/Admin/Module/Config/route.php';

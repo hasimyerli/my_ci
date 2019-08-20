@@ -7,6 +7,7 @@ class UserGroup extends Admin_Controller{
     {
         parent::__construct();
         $this->load->service('UserGroup_service');
+        $this->load->service('Module_service');
     }
 
     public function getList()
@@ -18,10 +19,12 @@ class UserGroup extends Admin_Controller{
     public function edit($id)
     {
         if ($this->input->server('REQUEST_METHOD') == 'POST' && $this->validateForm()) {
+
             $group = [
                 'name' => $this->input->post('name'),
-                'permission' => json_encode($this->input->post('hasPermissions')),
+                'modules' => json_encode($this->input->post('moduleData'))
             ];
+
             $update = $this->usergroup_service->update($id,$group);
             if ($update)
             {
@@ -36,24 +39,28 @@ class UserGroup extends Admin_Controller{
 
     private function getForm($id = NULL)
     {
+        $moduleData = [];
         $group = [];
         if (!empty($id)) {
             $this->data['formAction'] = base_url('admin/user/group/edit/'.$id);
             $this->data['breadcrumb'] = "Grup Düzenleme";
             $group = (array)$this->usergroup_service->find($id);
+            $modules = (array)$this->module_service->findAll();
+            foreach ($modules as $module) {
+                $moduleData[$module->id]['module'] = $module;
+                $moduleActions = (array)$this->module_service->getModuleActions($module->id);
+                $moduleData[$module->id]['actions'] = $moduleActions;
+            }
         } else {
             $this->data['breadcrumb'] = "Grup Ekleme";
             $this->data['formAction'] = base_url('admin/user/group/add');
         }
 
-        $hasPermission = [
-            'hasPermissions' => json_decode($group['permission'],true)
-        ];
+        $hasModule = (array)json_decode($group['modules']);
 
-        $this->data['permissions'] = $this->getPermissionList();
-
+        $this->setFormField("moduleData",['moduleData' => $moduleData]);
+        $this->setFormField("hasModule", ['hasModule' => $hasModule]);
         $this->setFormField("name", $group);
-        $this->setFormField("hasPermissions", $hasPermission);
 
         $this->load->view("admin/user/group/add_edit");
     }
@@ -67,40 +74,5 @@ class UserGroup extends Admin_Controller{
                 'rules' => 'required'
             ]
         ];
-    }
-
-    private function getPermissionList()
-    {
-        //TODO:: Bu kısım file yerine db den gelecek
-
-        $path = ['application/controllers/Admin/*'];
-        $files = [];
-        while (count($path) != 0) {
-            $next = array_shift($path);
-
-            foreach (glob($next) as $file) {
-                if (is_dir($file)) {
-                    $path[] = $file . '/*';
-                }
-
-                if (is_file($file)) {
-                    $files[] = $file;
-                }
-            }
-        }
-
-        $permissionList = [];
-
-        foreach ($files as $key =>  $file) {
-            $controller = substr($file, strlen('application/controllers/'));
-            $configFile = strrpos($controller, '/Config/route.php');
-            if (!$configFile) {
-                $permission = substr($controller, 0, strrpos($controller, '.'));
-                if (!in_array($permission, $this->getIgnoredPermission())) {
-                    $permissionList[] = $permission;
-                }
-            }
-        }
-        return $permissionList;
     }
 }

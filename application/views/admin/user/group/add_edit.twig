@@ -10,36 +10,43 @@
         <div class="row">
             <div class="col-md-12 form-group">
                 <div class="table-responsive">
-                    <table class="table table-bordered" width="100%" cellspacing="0">
+                    <table class="table table-bordered table-hover" width="100%" cellspacing="0">
                         <thead>
                         <tr>
-                            <th>Modül</th>
-                            <th>Erişim Yetkisi</th>
-                            <th>Değişim Yetkisi</th>
+                            <th colspan="2">Modül</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {% for permission in permissions %}
+                        {% for moduleKey, module in moduleData %}
                             <tr>
-                                <td>{{ permission }}</td>
                                 <td>
-                                    <input type="checkbox" class="form-check-inline"
-                                           name="hasPermissions[access][]"
-                                           value="{{ permission }}"
-                                           {% if permission in hasPermissions.access %}
-                                               checked="checked"
-                                           {% endif %}
-                                    >
+                                    {{ module['module'].description }}
                                 </td>
                                 <td>
-                                    <input type="checkbox" class="form-check-inline"
-                                           name="hasPermissions[modify][]"
-                                           value="{{ permission }}"
-                                           value="{{ permission }}"
-                                            {% if permission in hasPermissions.modify %}
-                                                checked="checked"
-                                            {% endif %}
-                                    >
+                                    <table class="table table-bordered" width="100%" cellspacing="0">
+                                        <thead>
+                                        <tr>
+                                            <td>Eylem</td>
+                                            <td>Erişim</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for action in module['actions'] %}
+                                                <tr>
+                                                    <td>
+                                                        {{ action.description }}
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" name="moduleData[{{ module['module'].unique_name }}][]" value="{{ action.name }}"
+                                                            {% if action.name in hasModule[module['module'].unique_name] %}
+                                                                checked="checked"
+                                                            {% endif %}
+                                                        >
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
                                 </td>
                             </tr>
                         {% endfor %}
