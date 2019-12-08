@@ -1,50 +1,61 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
     <title>{{ headTitle }}</title>
-
     {% include "admin/includes/head.twig" %}
-
     {% block stylesheets %}
         {% include "admin/includes/styles.twig" %}
     {% endblock %}
-
 </head>
-<body id="page-top">
 
-<div id="wrapper">
-    {% include "admin/includes/sidebar.twig" %}
+<body class="vertical-layout vertical-menu 2-columns  menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-col="2-columns">
 
-    <div id="content-wrapper" class="d-flex flex-column">
-        <div id="content">
-            {% include "admin/includes/header.twig" %}
-            <div class="container-fluid">
-                <div class="main-content">
-                    <div class="card shadow">
-                        <div class="card-header py-3 border-bottom-primary">
-                            {% block breadcrumbs %}
-                                {% include "admin/includes/breadcrumbs.twig" %}
-                            {% endblock %}
-                        </div>
-                        <div class="card-body">
-                            {% include "admin/includes/message.twig" %}
-                            {% include "admin/includes/form_validation_message.twig" %}
-                            {% block content %}
-                            {% endblock %}
-                        </div>
-                    </div>
+  {% include "admin/includes/sidebar.twig" %}
+  {% include "admin/includes/header.twig" %}
+
+  <div class="app-content content">
+    <div class="content-wrapper">
+      <div class="content-header row"></div>
+      <div class="content-body">
+      <section>
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header border-bottom-primary border-bottom-2">
+                <h4 class="card-title">{{ breadcrumb }}</h4>
+                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                <div class="heading-elements">
+                  <ul class="list-inline mb-0">
+                    <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                  </ul>
                 </div>
+              </div>
+              <div class="card-content collapse show">
+                <div class="card-body card-dashboard">
+                  {% include "admin/includes/alert_message.twig" %}
+                  {% include "admin/includes/form_validation_message.twig" %}
+                  {% block content %}
+                  {% endblock %}
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+      </section>
+      </div>
     </div>
-</div>
+  </div>
 
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
-{% block javascripts %}
-    {% include "admin/includes/scripts.twig" %}
-{% endblock %}
+  <footer class="footer footer-static footer-light navbar-border navbar-shadow">
+    <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2">
+      <span class="float-md-right d-block d-md-inline-blockd-none d-lg-block">Copyright &copy; 2019 <i class="ft-heart pink"></i></span>
+    </p>
+  </footer>
+
+  {% block javascripts %}
+      {% include "admin/includes/scripts.twig" %}
+  {% endblock %}
 
 </body>
 </html>

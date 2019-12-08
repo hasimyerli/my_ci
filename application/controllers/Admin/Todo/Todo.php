@@ -78,7 +78,7 @@ class Todo extends Admin_Controller
         $this->setFormField("description",$todo);
         $this->setFormField("date",$todo);
 
-        $this->load->view("admin/todo/add_edit");
+        $this->load->view("admin/todo/form");
     }
 
     protected function getFormRules()

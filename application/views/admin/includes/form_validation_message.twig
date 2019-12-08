@@ -1,5 +1,6 @@
 {% if  validation_errors() != "" %}
-    <div class="form-group alert alert-warning small" style="padding:10px;">
-        {{ validation_errors() }}
+    <div class="bs-callout-warning callout-border-left callout-border-right p-2 py-1">
+      {{ validation_errors() }}
     </div>
+    <br>
 {% endif %}

@@ -12,8 +12,8 @@ class Dashboard extends Admin_Controller
 
 	public function index()
 	{
-        $this->data['title'] = '- Dashboard';
-        $this->data['statistics'] = $this->todo_service->getModel()->getTodoStatistics();
-        $this->load->view('admin/dashboard/index');
+      $this->data['breadcrumb'] = "Dashboard";
+      $this->data['statistics'] = $this->todo_service->getModel()->getTodoStatistics();
+      $this->load->view('admin/dashboard/index');
 	}
 }

@@ -8,7 +8,7 @@ class MY_Controller extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->output->enable_profiler(true);
+        $this->output->enable_profiler(false);
         $this->data['csrfName'] = $this->security->get_csrf_token_name();
         $this->data['csrfToken'] = $this->security->get_csrf_hash();
         $this->getFlasMessage();
