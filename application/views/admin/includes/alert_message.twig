@@ -1,12 +1,13 @@
 {% if errorMessage and  errorMessage != "" %}
-    <div class="form-group alert alert-warning small" style="padding:10px;">
+   <div class="alert bg-warning p-2 py-1" style="padding:10px;">
         {{ errorMessage }}
     </div>
+    <br>
 {% endif %}
 
 {% if successMessage and  successMessage  != "" %}
-<div class="form-group alert alert-success small" style="padding:10px;">
-    {{ successMessage  }}
-</div>
+  <div class="alert bg-success p-2 py-1" style="padding:10px;">
+      {{ successMessage  }}
+  </div>
+  <br>
 {% endif %}
-

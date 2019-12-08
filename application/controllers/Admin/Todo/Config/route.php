@@ -1,6 +1,5 @@
 <?php
-$route["admin/todo/add"] = "Admin/todo/todo/add";
-$route["admin/todo/edit/(:num)"] = "Admin/todo/todo/edit/$1";
-$route["admin/todo/delete/(:num)"] = "Admin/todo/todo/delete/$1";
-$route["admin/todo/list"] = "Admin/todo/todo/getList";
-
+$route["admin/todo/add"] = "Admin/Todo/Todo/add";
+$route["admin/todo/edit/(:num)"] = "Admin/Todo/Todo/edit/$1";
+$route["admin/todo/delete/(:num)"] = "Admin/Todo/Todo/delete/$1";
+$route["admin/todo/list"] = "Admin/Todo/Todo/getList";

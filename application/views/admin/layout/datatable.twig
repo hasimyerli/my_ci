@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <title>{{ headTitle }}</title>
+    {% include "admin/includes/head.twig" %}
+    {% block stylesheets %}
+        {% include "admin/includes/styles.twig" %}
+        <link rel="stylesheet" type="text/css" href="{{ base_url('assets/vendors/css/tables/datatable/datatables.min.css') }}">
+    {% endblock %}
+</head>
+
+<body class="vertical-layout vertical-menu 2-columns  menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-col="2-columns">
+
+  {% include "admin/includes/sidebar.twig" %}
+  {% include "admin/includes/header.twig" %}
+
+  <div class="app-content content">
+    <div class="content-wrapper">
+      <div class="content-header row"></div>
+      <div class="content-body">
+      <section>
+        <div class="row">
+          <div class="col-12">
+          <div class="card">
+              <div class="card-header border-bottom-primary border-bottom-2">
+                <h4 class="card-title">{{ breadcrumb }}</h4>
+                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                <div class="heading-elements">
+                  <ul class="list-inline mb-0">
+                    <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="card-content collapse show">
+                <div class="card-body card-dashboard">
+                  {% block content %}
+                  {% endblock %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer footer-static footer-light navbar-border navbar-shadow">
+    <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2">
+      <span class="float-md-right d-block d-md-inline-blockd-none d-lg-block">Copyright &copy; 2019 <i class="ft-heart pink"></i></span>
+    </p>
+  </footer>
+
+  {% block javascripts %}
+      {% include "admin/includes/scripts.twig" %}
+      <script src="{{ base_url('assets/vendors/js/tables/datatable/datatables.min.js') }}" type="text/javascript"></script>
+      <script src="{{ base_url('assets/js/scripts/tables/datatables/datatable-basic.js') }}" type="text/javascript"></script>
+  {% endblock %}
+
+</body>
+</html>

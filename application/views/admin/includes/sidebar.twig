@@ -1,55 +1,62 @@
-<!-- Sidebar -->
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<div class="main-menu menu-dark menu-fixed menu-shadow" data-scroll-to-active="true">
+  <div class="main-menu-content">
+    <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
 
-    <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-text mx-12">Yönetim Paneli</div>
-    </a>
-
-    <!-- Divider -->
-    <hr class="sidebar-divider my-0">
-
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ base_url('admin/dashboard') }}" >
-            <span>Dashboard</span>
+      <li class="{{ get_class_name_by_uri(['admin/dashboard'],'active') }}">
+        <a href="{{ base_url('admin/dashboard') }}">
+          <i class="la la-home"></i>
+          <span class="menu-title" data-i18n="nav.dash.main">Dashboard</span>
         </a>
-    </li>
+      </li>
 
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#heading2" aria-expanded="true" aria-controls="collapseTwo">
-            <span>Yapılacaklar</span>
+      <li class="nav-item {{ get_class_name_by_uri(['todo'],'open') }}">
+        <a href="#">
+          <i class="ft-menu"></i>
+          <span class="menu-title" data-i18n="nav.page_layouts.main">Yapılacaklar</span>
         </a>
-        <div id="heading2" class="collapse" aria-labelledby="heading2" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ base_url('admin/todo/add') }}">Ekle</a>
-                <a class="collapse-item" href="{{ base_url('admin/todo/list') }}">Listele</a>
-            </div>
-        </div>
-    </li>
+        <ul class="menu-content">
+          <li class="{{ get_class_name_by_uri(['todo/add'],'active') }}">
+            <a class="menu-item" href="{{ base_url('admin/todo/add') }}">
+              <i class="ft-chevron-right"></i>
+              Ekle
+            </a>
+          </li>
+          <li class="{{ get_class_name_by_uri(['todo/list'],'active') }}">
+            <a class="menu-item" href="{{ base_url('admin/todo/list') }}">
+              <i class="ft-chevron-right"></i>
+              Listele
+            </a>
+          </li>
+        </ul>
+      </li>
 
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#heading3" aria-expanded="true" aria-controls="collapseTwo">
-            <span>Ayarlar</span>
+      <li class="nav-item {{ get_class_name_by_uri(['user','module'],'open') }}">
+        <a href="#">
+          <i class="ft-menu"></i>
+          <span class="menu-title" data-i18n="nav.page_layouts.main">Ayarlar</span>
         </a>
-        <div id="heading3" class="collapse" aria-labelledby="heading3" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="#">Kullanıcılar</a>
-                <a class="collapse-item" href="{{ base_url('admin/user/groups') }}">Kullanıcı Grupları</a>
-                <a class="collapse-item" href="{{ base_url('admin/modules') }}">Modüller</a>
-            </div>
-        </div>
-    </li>
+        <ul class="menu-content">
+          <li class="">
+            <a class="menu-item" href="">
+              <i class="ft-chevron-right"></i>
+              Kullanıcılar
+            </a>
+          </li>
+          <li class="{{ get_class_name_by_uri(['user/groups','user/group'],'active') }}">
+            <a class="menu-item" href="{{ base_url('admin/user/groups') }}">
+              <i class="ft-chevron-right"></i>
+              Kullanıcı Grupları
+            </a>
+          </li>
+          <li class="{{ get_class_name_by_uri(['modules','module'],'active') }}">
+            <a class="menu-item" href="{{ base_url('admin/modules') }}">
+              <i class="ft-chevron-right"></i>
+              Modüller
+            </a>
+          </li>
+        </ul>
+      </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider d-none d-md-block">
-
-    <!-- Sidebar Toggler (Sidebar) -->
-    <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-    </div>
-
-</ul>
-<!-- End of Sidebar -->
+    </ul>
+  </div>
+</div>
