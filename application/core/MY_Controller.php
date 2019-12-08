@@ -141,7 +141,7 @@ class Admin_Controller extends MY_Controller {
     protected function getIgnoredPermission()
     {
         return [
-            'Admin/Module/Module', //Because the name is already declared
+            'Admin/Settings/Module/Module', //Because the name is already declared
             'Admin/Page/Page', // Parent class
             'Admin/Page/ErrorPage' //public
         ];
